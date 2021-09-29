@@ -4,20 +4,36 @@ using UnityEngine;
 
 public class Food_Manager : MonoBehaviour
 {
-    public GameObject[] fruitObject;
-    public GameObject[] SpawnPoint;
-    // Start is called before the first frame update
-    void Start()
+    public GameObject[] objectsToSpawn;
+    public GameObject particle;
+    public Transform[] spawnPoints;
+    public List<GameObject> spawnedObjects;
+    public int spawnCount;
+    public int objectIndex;
+    public int spawnIndex;
+
+    private void Start()
     {
-        Spawn();
+        InvokeRepeating("Spawner", 1f, 0.5f);
     }
 
-    // Update is called once per frame
-    void Spawn()
+    void Spawner()
     {
-        for (int i = 0; i < SpawnPoint.Length; i++)
+        for (int i = 0; i < spawnCount; i++)
         {
-            Instantiate(fruitObject[i], SpawnPoint[i].transform);
+            objectIndex = Random.Range(0, objectsToSpawn.Length);
+            spawnIndex = Random.Range(0, spawnPoints.Length);
+            GameObject game = Instantiate(particle, spawnPoints[spawnIndex].position, Quaternion.identity);
+            GameObject go = Instantiate(objectsToSpawn[objectIndex], spawnPoints[spawnIndex].position, Quaternion.identity);
+            spawnedObjects.Add(go);
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        for (int i = 0; i < spawnPoints.Length; i++)
+        {
+            Gizmos.DrawSphere(spawnPoints[i].position, 0.5f);
         }
     }
 }

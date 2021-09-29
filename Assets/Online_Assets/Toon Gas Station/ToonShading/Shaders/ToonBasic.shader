@@ -9,8 +9,12 @@ Shader "Toon/Basic" {
 
 
 	SubShader {
+		Tags { "RenderType" = "Opaque" }
+		UsePass "Toon/Lit/FORWARD"
+		UsePass "Toon/Basic Outline/OUTLINE"
 		Tags { "RenderType"="Opaque" }
 		Pass {
+
 			Name "BASE"
 			Cull Off
 			

@@ -9,7 +9,7 @@ public class PickUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = GetComponent<Player_Health>();    
+        health = GameObject.FindGameObjectWithTag("Body").GetComponent<Player_Health>();
     }
 
     void OnTriggerEnter(Collider other)

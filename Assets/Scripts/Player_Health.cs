@@ -9,8 +9,10 @@ public class Player_Health : MonoBehaviour
     
     [SerializeField]float extrusionAmount = 0;
     Renderer renderer;
-    [SerializeField] float timeRemaining = 0;
+    public float timeRemaining = 0;
     [SerializeField] Slider healthSlider;
+    [SerializeField] Animator animator;
+    [SerializeField] bool isDead;
 
     void Start()
     {
@@ -19,14 +21,25 @@ public class Player_Health : MonoBehaviour
 
     void Update()
     {
-        extrusionAmount = timeRemaining / 10;
+        extrusionAmount = timeRemaining / 200;
         if (timeRemaining >= -10)
         {
             timeRemaining -= Time.deltaTime;
         }
         else
-            Destroy(this.gameObject);
+        {
+            isDead = true;
+            Die();
+        }
         healthSlider.value = timeRemaining / 10;
         renderer.material.SetFloat("_Amount", extrusionAmount);
     }
+    void Die()
+    {
+        if(isDead)
+        {
+        animator.SetTrigger("Death");
+        }
+    }
+
 }

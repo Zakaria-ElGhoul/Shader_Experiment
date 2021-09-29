@@ -1,4 +1,4 @@
-Shader "Example/Normal Fat Shader" {
+Shader "Zaka/Normal Fat Shader" {
 
     Properties{
       _MainTex("Texture", 2D) = "white" {}
@@ -32,6 +32,7 @@ Shader "Example/Normal Fat Shader" {
           void vert(inout appdata_full v) {
               v.vertex.xyz += v.normal * _Amount;
           }
+
           void surf(Input IN, inout SurfaceOutput o) {
 
               //standard texture

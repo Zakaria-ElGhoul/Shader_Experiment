@@ -25,7 +25,6 @@ public class Player_Controller : MonoBehaviour
     public Camera playerCam;
     public Animator anim;
 
-    // Start is called before the first frame update
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -36,13 +35,13 @@ public class Player_Controller : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        //checkForLanding();
-        rotate();
-        move();
-        //animate();
+        checkForLanding();
+        Rotate();
+        Move();
+        Animate();
     }
 
-    public void move()
+    public void Move()
     {
         if (canMove == false) return;
         if (controller.isGrounded)
@@ -54,7 +53,7 @@ public class Player_Controller : MonoBehaviour
             {
                 moveDirection.y = jumpSpeed;
 
-                //anim.SetTrigger("IsJumping");
+                anim.SetTrigger("Jumping");
             }
             jumps = 0;
         }
@@ -74,7 +73,7 @@ public class Player_Controller : MonoBehaviour
         controller.Move(moveDirection * Time.deltaTime);
     }
 
-    public void rotate()
+    public void Rotate()
     {
         transform.eulerAngles = new Vector3(0, playerCam.transform.rotation.eulerAngles.y, 0);
     }
@@ -96,8 +95,7 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-    /*
-    public void animate()
+    public void Animate()
     {
         if (moveDirection.x != 0 || moveDirection.z != 0)
         {
@@ -107,14 +105,15 @@ public class Player_Controller : MonoBehaviour
         {
             anim.SetBool("Walking", false);
         }
-        if (Input.GetKey(KeyCode.Space))
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             anim.SetBool("IsJumping", true);
         }
+
         else
         {
             anim.SetBool("IsJumping", false);
         }
     }
-    */
 }
